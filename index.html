@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/bland-client-js-sdk/dist/lib/bland-web-client.js"></script>
+</head>
+<body>
+  <button id="call-button">Talk to Alice</button>
+  <script>
+    (async()=>{
+      const agentId     = "YOUR_AGENT_ID";
+      const sessionToken= await fetch("/.netlify/functions/getToken").then(r=>r.json()).then(d=>d.token);
+      const client = new BlandWebClient(agentId, sessionToken);
+      document.getElementById('call-button')
+              .onclick = ()=> client.initConversation({sampleRate:44100});
+    })();
+  </script>
+</body>
+</html>
