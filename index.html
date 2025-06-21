@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <title>Alice Voice Chat</title>
   <script src="https://cdn.jsdelivr.net/npm/bland-client-js-sdk/dist/lib/bland-web-client.js"></script>
 </head>
 <body>
   <button id="call-button">Talk to Alice</button>
+
   <script>
-    (async()=>{
-      const agentId     = "YOUR_AGENT_ID";
-      const sessionToken= await fetch("/.netlify/functions/getToken").then(r=>r.json()).then(d=>d.token);
+    document.addEventListener('DOMContentLoaded', () => {
+      const agentId     = "YOUR_AGENT_ID";      // e.g. "agent_abc123"
+      const sessionToken= "YOUR_SESSION_TOKEN"; // token from /authorize
+
       const client = new BlandWebClient(agentId, sessionToken);
-      document.getElementById('call-button')
-              .onclick = ()=> client.initConversation({sampleRate:44100});
-    })();
+      document.getElementById('call-button').onclick = async () => {
+        await client.initConversation({ sampleRate: 44100 });
+      };
+    });
   </script>
 </body>
 </html>
